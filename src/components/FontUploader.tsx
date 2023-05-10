@@ -3,7 +3,7 @@ import { FontOption } from '../App'
 import { loadFont } from '../utils/helpers/fonts'
 
 export type FontUploaderProps = {
-    onFontUploaded?: (font?: string) => void
+    onFontUploaded?: (font?: { family: string; file: File }) => void
     setFontList?: React.Dispatch<React.SetStateAction<FontOption>>
 }
 
@@ -18,9 +18,13 @@ const FontUploader = (props: FontUploaderProps) => {
 
             const fontName =
                 file?.name?.replace(/\.[^/.]+$/, '') || 'custom font'
-            await loadFont({ name: fontName, file })
+            await loadFont({ family: fontName, file })
             setIsFontsLoading(false)
-            props.onFontUploaded?.(fontName)
+
+            props.onFontUploaded?.({
+                family: fontName,
+                file,
+            })
         }
     }
 

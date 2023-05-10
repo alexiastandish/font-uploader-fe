@@ -5,12 +5,14 @@ import FontUploader from './components/FontUploader'
 import { listFonts } from './utils/helpers/fonts'
 
 export type FontOption = {
-    name: string
-    file: string | File
+    family: string
+    file: File
 }
 
 function App() {
     const [font, setFont] = useState<string>()
+    const [fonts, setFonts] = useState([...listFonts()])
+
     return (
         <div className="App" style={{ fontFamily: font }}>
             <p style={{ fontFamily: font }}>
@@ -25,7 +27,7 @@ function App() {
 
             <div className="select-container">
                 <FontPicker
-                    options={listFonts()}
+                    options={fonts}
                     value={font}
                     onChange={(e) => setFont(e?.value)}
                 />
@@ -33,7 +35,17 @@ function App() {
 
             <div className="uploader-container">
                 <FontUploader
-                    onFontUploaded={(font?: string) => font && setFont(font)}
+                    onFontUploaded={(font) => {
+                        const updatedFonts = [...fonts]
+                        updatedFonts.push({
+                            family: font.family,
+                            file: font.file,
+                        })
+
+                        setFonts(updatedFonts)
+
+                        return font.family && setFont(font.family)
+                    }}
                 />
             </div>
         </div>

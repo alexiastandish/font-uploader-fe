@@ -18,7 +18,8 @@ const FontPicker = ({ options, ...props }: FontPickerProps) => {
     const [isFontsReady, setIsFontsReady] = useState(false)
 
     const fontOptions = useMemo(
-        () => options.map((font) => ({ label: font.name, value: font.name })),
+        () =>
+            options.map((font) => ({ label: font.family, value: font.family })),
         [options]
     )
 

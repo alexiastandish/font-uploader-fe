@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+# Self Service Fonts
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This proof of concept was created to demostrate self service fonts on the merchant dashboard. The goal of the self servince fonts feature is to allow merchants to upload specific font families / font files on the front end in order to customize the design of their app.
 
-## Available Scripts
+This application is particularly focused on the client side and UI/UX of self service fonts: loading fonts dynamically, allowing users to load a custom font file, rendering the selected and available font files / font families in the text preview (lorem ipsum text) and dropdown picker.
 
-In the project directory, you can run:
+## Architecture
 
-### `npm start`
+### Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`FontPicker`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+-   responsible for handling the loading state of the available fonts in the dropdown when the page loads and when a new fonts is uploaded successfully
+-   responsible for iterating through and shaping the `fontOptions` data that gets passed to react-selet Select dropdown (recomputes memoized array when `props.options` changes)
+-   calls onChange function that sets the selected font from the dropdown
 
-### `npm test`
+`FontUploader`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   responsible for loading state of the font file being uploaded
+-   when a font is uploaded, the onChange event sends the font family and the font file to a helper function that checks to see if the font file exists. If it does not, a new FontFace object is created, passing the Font family and Font file (source) to the FontFace constructor
+    -   `family`: Specifies a font family name that can be used to match against this font face when styling elements
+    -   `source`: The font source (can either be a url to a font face file or Binary font face data in an ArrayBuffer or a TypedArray)
+    -   `await fontFace.load()` waits for the font to be loaded
+    -   `documents.fonts.add(fontFace)` adds the font to document **allowing us to dynamically style the available merchant fonts listed in the dropdown as well as and the selected font in phone preview with the expected typography UI**
 
-### `npm run build`
+To test with hardcoded available (previously uploaded and stored) font families / font files, use `fonts.json`) to hard code what would represent the data passed into the FontPicker component when the feature is initialized (bc this pos is not hooked up to an actual database or bucket).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   FontFace API
