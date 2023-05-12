@@ -27,5 +27,5 @@ To test with hardcoded available (previously uploaded and stored) font families 
 
 ## Dependencies
 
--   FontFace API [https://developer.mozilla.org/en-US/docs/Web/API/FontFace]
--   fontname [https://github.com/danbovey/fontname]
+-   [FontFace API](https://developer.mozilla.org/en-US/docs/Web/API/FontFace)
+-   [fontname](https://github.com/danbovey/fontname)
