@@ -23,7 +23,7 @@ This application is particularly focused on the client side and UI/UX of self se
     -   `await fontFace.load()` waits for the font to be loaded
     -   `documents.fonts.add(fontFace)` adds the font to document **allowing us to dynamically style the available merchant fonts listed in the dropdown as well as and the selected font in phone preview with the expected typography UI**
 
-To test with hardcoded available (previously uploaded and stored) font families / font files, use `fonts.json`) to hard code what would represent the data passed into the FontPicker component when the feature is initialized (bc this pos is not hooked up to an actual database or bucket).
+To test with hardcoded available (previously uploaded and stored) font families / font files, use `fonts.json`) to hard code what would represent the data passed into the FontPicker component when the feature is initialized (bc this POC is not hooked up to an actual database or bucket).
 
 ## Dependencies
 
